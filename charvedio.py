@@ -1,3 +1,20 @@
+Skip to content
+ 
+Search or jump toâ€¦
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @caelumable Sign out
+0
+0 0 caelumable/CharVedio
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+CharVedio/charvedio.py
+1c78d87  3 minutes ago
+@caelumable caelumable new file
+     
+153 lines (129 sloc)  4.28 KB
 # -*- coding:utf-8 -*-
 # coding:utf-8
 
@@ -20,61 +37,14 @@ def get_char(r, g, b, alpha=256):
     return ascii_char[int(gray / unit)]
 
 
-    '''
+
 def txt2image(file_name):
-    im = Image.open(file_name).convert('RGB')
-    # gif²ğ·ÖºóµÄÍ¼Ïñ£¬ĞèÒª×ª»»£¬·ñÔò±¨´í£¬ÓÉÓÚgif·Ö¸îºó±£´æµÄÊÇË÷ÒıÑÕÉ«
-    raw_width = im.width
-    raw_height = im.height
-    width = int(raw_width / 6)
-    height = int(raw_height / 15)
-    im = im.resize((width, height), Image.NEAREST)
-
-    txt = ""
-    colors = []
-    for i in range(height):
-        for j in range(width):
-            pixel = im.getpixel((j, i))
-            colors.append((pixel[0], pixel[1], pixel[2]))
-            if (len(pixel) == 4):
-                txt += get_char(pixel[0], pixel[1], pixel[2], pixel[3])
-            else:
-                txt += get_char(pixel[0], pixel[1], pixel[2])
-        txt += '\n'
-        colors.append((255, 255, 255))
-
-    im_txt = Image.new("RGB", (raw_width, raw_height), (255, 255, 255))
-    dr = ImageDraw.Draw(im_txt)
-    # font = ImageFont.truetype(os.path.join("fonts","ººÒÇ¿¬Ìå¼ò.ttf"),18)
-    font = ImageFont.load_default().font
-    x = y = 0
-    # »ñÈ¡×ÖÌåµÄ¿í¸ß
-    font_w, font_h = font.getsize(txt[1])
-    font_h *= 1.37  # µ÷Õûºó¸ü¼Ñ
-    # ImageDrawÎªÃ¿¸öasciiÂë½øĞĞÉÏÉ«
-    for i in range(len(txt)):
-        if (txt[i] == '\n'):
-            x += font_h
-            y = -font_w
-           # self, xy, text, fill = None, font = None, anchor = None,
-            # *args, ** kwargs
-        dr.text((y, x), txt[i],  fill=colors[i])
-        # dr.text((y, x), txt[i], font=font, fill=colors[i])
-        y += font_w
-
-    name = file_name
-    # print(name + ' changed')
-    im_txt.save(r'E:\3.jpg')
-    '''
-
-    '''
-def txt2im(file_name):
     im = Image.open(file_name)
     be_width = im.width
     be_height = im.height
     '''
-    #ÕâÀïÒª×¢Òâ£¬ÒòÎªÊ¹ÓÃ×Ö·û´úÌæÏñËØµã£¬ËùÒÔ×Ö·ûµÄ´óĞ¡Òª¾¡Á¿ºÍÏñËØµãÒ»ÖÂ£¬ÄÇÃ´¾ÍÒª°ÑÍ¼ÏñËõĞ¡Ò»ÏÂ
-    #ÄÇÃ´ËõĞ¡ÒÔºóÔÙÓÃÔ­À´´óĞ¡µÄ»­²¼»­»­Ãæ£¬ÏàµÈÓë°ÑÒ»¸öÏñËØµã·Å´óÁË£¬ÄÇÃ´¾Í¿ÉÒÔÓÃ×Ö·û´úÌæÁË,ËùÒÔÕâÀïµÄ²ÎÊı6£¬15ÊÇ¾­ÑéµÃµ½µÄÊı¾İ
+    #è¿™é‡Œè¦æ³¨æ„ï¼Œå› ä¸ºä½¿ç”¨å­—ç¬¦ä»£æ›¿åƒç´ ç‚¹ï¼Œæ‰€ä»¥å­—ç¬¦çš„å¤§å°è¦å°½é‡å’Œåƒç´ ç‚¹ä¸€è‡´ï¼Œé‚£ä¹ˆå°±è¦æŠŠå›¾åƒç¼©å°ä¸€ä¸‹
+    #é‚£ä¹ˆç¼©å°ä»¥åå†ç”¨åŸæ¥å¤§å°çš„ç”»å¸ƒç”»ç”»é¢ï¼Œç›¸ç­‰ä¸æŠŠä¸€ä¸ªåƒç´ ç‚¹æ”¾å¤§äº†ï¼Œé‚£ä¹ˆå°±å¯ä»¥ç”¨å­—ç¬¦ä»£æ›¿äº†,æ‰€ä»¥è¿™é‡Œçš„å‚æ•°6ï¼Œ15æ˜¯ç»éªŒå¾—åˆ°çš„æ•°æ®
     
     '''
     width = int(be_width / 6)
@@ -82,35 +52,29 @@ def txt2im(file_name):
     im = im.resize((width, height), Image.NEAREST)
     txt = ""
     colors = []
-
-
-
     for i in range(height):
         for j in range(width):
             pixel = im.getpixel((j, i))
-            # ÏÂÃæµÄÕâ¸öÖ»ÊÇµ£ĞÄÓĞµÄÏñËØ»áÓĞÍ¸Ã÷¶ÈµÄ²ÎÊı£¬ËùÒÔ·Ö¿ªÀ´¿¼ÂÇ
-    '''
+            # ä¸‹é¢çš„è¿™ä¸ªåªæ˜¯æ‹…å¿ƒæœ‰çš„åƒç´ ä¼šæœ‰é€æ˜åº¦çš„å‚æ•°ï¼Œæ‰€ä»¥åˆ†å¼€æ¥è€ƒè™‘
+    
         #      if (len(pixel) == 4):
         #             txt += get_char(pixel[0], pixel[1], pixel[2], pixel[3])
         #    else:
         #           txt += get_char(pixel[0], pixel[1], pixel[2])
-    '''
             txt += get_char(pixel[0], pixel[1], pixel[2])
             colors.append((pixel[0], pixel[1], pixel[2]))
-        # ÒòÎªÏÂÃæµÄÃ¿Ò»¸ö×Ö·û¶¼Òª¶ÔÓ¦ÓĞÑÕÉ«£¬ËùÒÔÈç¹ûtxt¼ÓÁËÒ»¸ö»Ø³µ£¬ÄÇÃ´¶ÔÓ¦ÑÕÉ«Ò²Ó¦¸Ã¼ÓÒ»¸ö£¬²»È»»á²úÉú²»¶ÔÓ¦µÄÇé¿ö£¬Ôì³ÉindeÒç³ö
+        # å› ä¸ºä¸‹é¢çš„æ¯ä¸€ä¸ªå­—ç¬¦éƒ½è¦å¯¹åº”æœ‰é¢œè‰²ï¼Œæ‰€ä»¥å¦‚æœtxtåŠ äº†ä¸€ä¸ªå›è½¦ï¼Œé‚£ä¹ˆå¯¹åº”é¢œè‰²ä¹Ÿåº”è¯¥åŠ ä¸€ä¸ªï¼Œä¸ç„¶ä¼šäº§ç”Ÿä¸å¯¹åº”çš„æƒ…å†µï¼Œé€ æˆindeæº¢å‡º
         txt += '\n'
         colors.append((255, 255, 255))
-
-    # ½¨Á¢ĞÂµÄ»­²¼
+    # å»ºç«‹æ–°çš„ç”»å¸ƒ
     new_txt = Image.new("RGB", (be_width, be_height), (255, 255, 255))
-    # ÔÚĞÂ»­²¼ÉÏ»­»­
+    # åœ¨æ–°ç”»å¸ƒä¸Šç”»ç”»
     draw = ImageDraw.Draw(new_txt)
     font = ImageFont.load_default().font
     x = y = 0
     font_w, font_h = font.getsize(txt[1])
-    # ÁôÏÂÒ»Ğ©¼ä¾à
+    # ç•™ä¸‹ä¸€äº›é—´è·
     font_h *= 1.25
-
     for i in range(len(txt)):
         if (txt[i] == '\n'):
             x += font_h
@@ -120,11 +84,9 @@ def txt2im(file_name):
         draw.text((y, x), txt[i],  fill=colors[i])
         # dr.text((y, x), txt[i], font=font, fill=colors[i])
         y += font_w
-
     new_txt.save(file_name)
-    '''
 
-#°Ñvideo×ª±ä³ÉÒ»ÏµÁĞÍ¼Æ¬
+#æŠŠvideoè½¬å˜æˆä¸€ç³»åˆ—å›¾ç‰‡
 def videoToIm(videoPath):
     vc=cv2.VideoCapture(videoPath)
     c = 1
@@ -150,3 +112,16 @@ def ImTOVedio():
 '''
 txt2image(r'E:\2.jpg')
 '''
+Â© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Press h to open a hovercard with more details.

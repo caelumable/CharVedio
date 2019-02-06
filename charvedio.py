@@ -1,20 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- @caelumable Sign out
-0
-0 0 caelumable/CharVedio
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-CharVedio/charvedio.py
-1c78d87  3 minutes ago
-@caelumable caelumable new file
-     
-153 lines (129 sloc)  4.28 KB
 # -*- coding:utf-8 -*-
 # coding:utf-8
 

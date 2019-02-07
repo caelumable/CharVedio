@@ -2,7 +2,7 @@
 # coding:utf-8
 
 import os
-
+import subprocess
 import cv2
 from cv2 import VideoWriter, VideoWriter_fourcc, imread, resize
 from PIL import Image, ImageDraw, ImageFont
@@ -21,14 +21,13 @@ def get_char(r, g, b, alpha=256):
 
 
 
-def txt2image(file_name):
+def txt2im(file_name):
     im = Image.open(file_name)
     be_width = im.width
     be_height = im.height
     '''
     #这里要注意，因为使用字符代替像素点，所以字符的大小要尽量和像素点一致，那么就要把图像缩小一下
-    #那么缩小以后再用原来大小的画布画画面，相等与把一个像素点放大了，那么就可以用字符代替了,所以这里的参数6，15是经验得到的数据
-    
+    #那么缩小以后再用原来大小的画布画画面，相等与把一个像素点放大了，那么就可以用字符代替了,所以这里的参数6，15是经验得到的数据 
     '''
     width = int(be_width / 6)
     height = int(be_height / 15)
@@ -62,15 +61,12 @@ def txt2image(file_name):
         if (txt[i] == '\n'):
             x += font_h
             y = 0
-        # self, xy, text, fill = None, font = None, anchor = None,
-            # *args, ** kwargs
         draw.text((y, x), txt[i],  fill=colors[i])
-        # dr.text((y, x), txt[i], font=font, fill=colors[i])
         y += font_w
     new_txt.save(file_name)
 
 #把video转变成一系列图片
-def videoToIm(videoPath):
+def videoToImage(videoPath):
     vc=cv2.VideoCapture(videoPath)
     c = 1
     if vc.isOpened(): 
@@ -87,11 +83,50 @@ def videoToIm(videoPath):
         r,frame=vc.read()
         c+=1
     os.chdir('..')
+    return vc
 
-def ImTOVedio():
-    cv2=132sadl
+def Im2vedio(outfilename,fps):
+    fourcc=VideoWriter_fourcc('M','J','P','G')
+    images = os.listdir('Cache')
+    im=Image.open('Cache/'+images[0])
+    vw=cv2.VideoWriter(outfilename,fourcc,fps,im.size)
+
+    os.chdir('Cache')
+
+    for image in range(len(images)):
+        frame=cv2.imread(str(image+1)+'.jpg')
+        vw.write(frame)
+    os.chdir("..")
+
+    vw.release()
+
+def remove_dir(path):
+    if os.path.exists(path):
+        if os.path.isdir(path):
+            dirs = os.listdir(path)
+            for d in dirs:
+                if os.path.isdir(path+'/'+d):
+                    remove_dir(path+'/'+d)
+                elif os.path.isfile(path+'/'+d):
+                    os.remove(path+'/'+d)
+            os.rmdir(path)#删除一个空目录
+            return
+        elif os.path.isfile(path):
+            os.remove(path)
+        return
 
 
-'''
-txt2image(r'E:\2.jpg')
-'''
+
+
+if __name__=='__main__':
+    INPUT=""#转换视频的地址
+    vc = videoToImage(INPUT)
+    FPS = vc.get(cv2.CAP_PROP_FPS)#获取帧率
+    vc.release()
+
+    #opencv只支持avi格式的视频，所以如果想要转换格式的话建议使用ffmpeg
+    Im2vedio(INPUT.split('.')[0]+"1.avi",FPS)
+
+    remove_dir(os.getcwd()+"/Cache")
+       
+
